@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stop The War — The World Is Speaking</title>
+  <meta name="description" content="Millions of people around the world are demanding peace. Add your voice. One click is all it takes.">
+  <meta property="og:title" content="Stop The War — The World Is Speaking">
+  <meta property="og:description" content="Millions of people around the world are demanding peace. Add your voice. One click is all it takes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stopthewar.world">
+  <meta property="og:image" content="https://stopthewar.world/share-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stop The War — The World Is Speaking">
+  <meta name="twitter:description" content="Millions of people around the world are demanding peace. Add your voice.">
+  <meta name="twitter:image" content="https://stopthewar.world/share-image.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #F2EDE4;
+      --ink: #1a1a1a;
+      --red: #C41E1E;
+      --red-dark: #7a1010;
+      --red-hover: #d42020;
+      --muted: #888;
+      --border: #bbb;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Barlow Condensed', sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem 3rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.04) 28px, rgba(0,0,0,0.04) 29px),
+        repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(0,0,0,0.03) 28px, rgba(0,0,0,0.03) 29px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Language switcher */
+    .lang-switcher {
+      position: fixed;
+      top: 12px;
+      right: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lang-select {
+      font-family: 'Special Elite', serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      padding: 5px 8px;
+      cursor: pointer;
+      border-radius: 2px;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .lang-select:focus { outline: 2px solid var(--red); }
+
+    /* Butterflies */
+    .butterfly-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .butterfly {
+      position: absolute;
+      animation: flyUp var(--dur) ease-out forwards;
+    }
+
+    .butterfly svg {
+      width: 100%;
+      height: 100%;
+      animation: flutter var(--flap) ease-in-out infinite alternate;
+      transform-origin: center;
+    }
+
+    @keyframes flyUp {
+      0%   { transform: translate(0,0) rotate(var(--rot)); opacity: 1; }
+      60%  { opacity: 1; }
+      100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot2)); opacity: 0; }
+    }
+
+    @keyframes flutter {
+      0%   { transform: scaleX(1); }
+      100% { transform: scaleX(0.25); }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .masthead {
+      font-family: 'Special Elite', serif;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #444;
+      border-top: 2.5px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 5px 0;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .headline {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2rem, 6.5vw, 4rem);
+      line-height: 1;
+      color: var(--ink);
+      text-align: center;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .headline .red { color: var(--red); }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0.6rem 0 1rem;
+    }
+
+    .subhead {
+      font-family: 'Special Elite', serif;
+      font-size: 13px;
+      color: #555;
+      text-align: center;
+      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .btn-wrap { margin-bottom: 0.6rem; position: relative; }
+
+    .big-btn {
+      display: block;
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2rem, 6vw, 3rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: var(--cream);
+      background: var(--red);
+      border: none;
+      padding: 1rem 3.5rem 1.15rem;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 8px 0 var(--red-dark), 0 10px 0 rgba(0,0,0,0.2);
+      transition: box-shadow 0.08s ease, transform 0.08s ease, background 0.15s ease;
+      outline: none;
+      user-select: none;
+      -webkit-user-select: none;
+      border-radius: 3px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .big-btn::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 2px solid rgba(255,255,255,0.15);
+      pointer-events: none;
+      border-radius: 1px;
+    }
+
+    .big-btn:hover { background: var(--red-hover); }
+    .big-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+
+    .big-btn.pressed {
+      box-shadow: 0 2px 0 var(--red-dark), 0 3px 0 rgba(0,0,0,0.2);
+      transform: translateY(6px);
+    }
+
+    .big-btn.voted { background: #a01818; box-shadow: 0 8px 0 #5a0c0c, 0 10px 0 rgba(0,0,0,0.2); }
+    .big-btn.voted:hover { background: #b01a1a; }
+    .big-btn.voted.pressed { box-shadow: 0 2px 0 #5a0c0c, 0 3px 0 rgba(0,0,0,0.2); transform: translateY(6px); }
+
+    .thankyou {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 0.14em;
+      color: var(--red);
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      min-height: 1.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .thankyou.show { opacity: 1; }
+
+    .voted-badge {
+      display: none;
+      font-family: 'Special Elite', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #777;
+      text-align: center;
+      margin-top: 0.4rem;
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+
+    .voted-badge.show { display: inline-block; }
+
+    .counter-block {
+      text-align: center;
+      border: 3px solid var(--ink);
+      padding: 1rem 3rem;
+      background: var(--ink);
+      margin-top: 1.2rem;
+      width: 100%;
+    }
+
+    .counter-label {
+      font-family: 'Special Elite', serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 4px;
+    }
+
+    .counter-number {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(3rem, 10vw, 4.5rem);
+      color: var(--cream);
+      line-height: 1;
+      letter-spacing: 0.05em;
+      display: block;
+      transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .counter-number.bump { transform: scale(1.1); }
+
+    .counter-sub {
+      font-family: 'Special Elite', serif;
+      font-size: 10px;
+      color: #777;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .share-section { margin-top: 1.6rem; width: 100%; }
+
+    .share-label {
+      font-family: 'Special Elite', serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .share-label::before, .share-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .share-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+
+    .share-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      padding: 9px 15px;
+      cursor: pointer;
+      border-radius: 2px;
+      color: #fff;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+      line-height: 1;
+    }
+
+    .share-btn:hover  { opacity: 0.85; }
+    .share-btn:active { transform: scale(0.96); }
+    .share-btn svg { width: 16px; height: 16px; fill: #fff; flex-shrink: 0; }
+
+    .btn-x        { background: #000000; }
+    .btn-facebook { background: #1877F2; }
+    .btn-whatsapp { background: #25D366; }
+    .btn-telegram { background: #2AABEE; }
+    .btn-linkedin { background: #0A66C2; }
+    .btn-email    { background: #555555; }
+    .btn-copy     { background: var(--ink); }
+
+    .copy-confirm {
+      font-family: 'Special Elite', serif;
+      font-size: 11px;
+      color: var(--red);
+      text-align: center;
+      margin-top: 0.7rem;
+      letter-spacing: 0.1em;
+      min-height: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .copy-confirm.show { opacity: 1; }
+
+    .footer {
+      margin-top: 2.5rem;
+      font-family: 'Special Elite', serif;
+      font-size: 10px;
+      color: #aaa;
+      text-align: center;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      width: 100%;
+    }
+
+    /* RTL support for Arabic */
+    [dir="rtl"] .share-grid { direction: rtl; }
+    [dir="rtl"] .share-label::before { order: 1; }
+    [dir="rtl"] .share-label::after  { order: -1; }
+
+    @media (max-width: 420px) {
+      .big-btn { padding: 0.9rem 2rem 1rem; }
+      .counter-block { padding: 0.8rem 1.5rem; }
+      .share-btn { font-size: 12px; padding: 8px 11px; }
+      .headline { white-space: normal; font-size: clamp(1.8rem, 8vw, 3rem); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="butterfly-container" id="butterflyContainer"></div>
+
+  <!-- Language switcher -->
+  <div class="lang-switcher">
+    <select class="lang-select" id="langSelect" onchange="setLang(this.value)" aria-label="Choose language">
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+      <option value="fr">FR</option>
+      <option value="ar">AR</option>
+      <option value="pt">PT</option>
+      <option value="de">DE</option>
+      <option value="hi">HI</option>
+      <option value="ja">JA</option>
+      <option value="zh">ZH</option>
+      <option value="ru">RU</option>
+    </select>
+  </div>
+
+  <div class="wrapper">
+
+    <div class="masthead" id="t-masthead"></div>
+    <div class="headline" id="t-headline"></div>
+    <div class="divider"></div>
+    <p class="subhead" id="t-subhead"></p>
+
+    <div class="btn-wrap">
+      <button class="big-btn" id="mainBtn"></button>
+    </div>
+
+    <div class="thankyou" id="thankyou" aria-live="polite"></div>
+    <div class="voted-badge" id="votedBadge"></div>
+
+    <div class="counter-block">
+      <div class="counter-label" id="t-counter-label"></div>
+      <span class="counter-number" id="counterNum">11,349</span>
+      <div class="counter-sub" id="t-counter-sub"></div>
+    </div>
+
+    <div class="share-section">
+      <div class="share-label" id="t-share-label"></div>
+      <div class="share-grid">
+
+        <button class="share-btn btn-x" onclick="shareX()">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.852L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </button>
+
+        <button class="share-btn btn-facebook" onclick="shareFacebook()">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Facebook
+        </button>
+
+        <button class="share-btn btn-whatsapp" onclick="shareWhatsApp()">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </button>
+
+        <button class="share-btn btn-telegram" onclick="shareTelegram()">
+          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram
+        </button>
+
+        <button class="share-btn btn-linkedin" onclick="shareLinkedIn()">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </button>
+
+        <button class="share-btn btn-email" onclick="shareEmail()">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email
+        </button>
+
+        <button class="share-btn btn-copy" onclick="copyLink()">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          <span id="t-copy-btn">Copy Link</span>
+        </button>
+
+      </div>
+      <div class="copy-confirm" id="copyConfirm"></div>
+    </div>
+
+    <div class="footer" id="t-footer"></div>
+
+  </div>
+
+  <script>
+    // ----------------------------------------------------------------
+    // TRANSLATIONS
+    // ----------------------------------------------------------------
+    const TRANSLATIONS = {
+      en: {
+        masthead:      'World Edition • Your Voice Counts • Join Millions',
+        headline:      'THE WORLD SAYS <span class="red">STOP.</span>',
+        subhead:       'Press the button. Add your voice to a growing global demand.<br>Every press is a person who wants peace.',
+        btn:           'STOP THE WAR',
+        counterLabel:  'People demanding peace',
+        counterSub:    'and counting — worldwide',
+        shareLabel:    'Spread the word',
+        votedFirst:    'YOUR VOICE HAS BEEN ADDED',
+        votedRepeat:   'YOUR VOICE IS ALREADY COUNTED',
+        votedBadge:    'Your voice is counted — keep clicking for peace',
+        copyBtn:       'Copy Link',
+        copyConfirm:   'Link copied — paste it anywhere to spread the word',
+        footer:        'A peaceful global voice • No affiliation • Just people who want peace',
+        shareMsg:      'I support the end of the war in Iran. Millions of people around the world are adding their voice — will you? Click here to share your support:',
+        emailSubject:  'The world wants the war to stop — add your voice',
+        dir:           'ltr',
+      },
+      es: {
+        masthead:      'Edición Mundial • Tu Voz Cuenta • Únete a Millones',
+        headline:      'EL MUNDO DICE <span class="red">BASTA.</span>',
+        subhead:       'Pulsa el botón. Añade tu voz a una demanda global creciente.<br>Cada pulsación es una persona que quiere la paz.',
+        btn:           'PARA LA GUERRA',
+        counterLabel:  'Personas exigiendo la paz',
+        counterSub:    'y contando — en todo el mundo',
+        shareLabel:    'Corre la voz',
+        votedFirst:    'TU VOZ HA SIDO AÑADIDA',
+        votedRepeat:   'TU VOZ YA ESTÁ CONTADA',
+        votedBadge:    'Tu voz está contada — sigue haciendo clic por la paz',
+        copyBtn:       'Copiar enlace',
+        copyConfirm:   'Enlace copiado — pégalo en cualquier lugar',
+        footer:        'Una voz global pacífica • Sin afiliación • Solo personas que quieren la paz',
+        shareMsg:      'Apoyo el fin de la guerra en Irán. Millones de personas en todo el mundo están añadiendo su voz — ¿lo harás tú? Haz clic aquí para compartir tu apoyo:',
+        emailSubject:  'El mundo quiere que la guerra se detenga — añade tu voz',
+        dir:           'ltr',
+      },
+      fr: {
+        masthead:      'Édition Mondiale • Votre Voix Compte • Rejoignez des Millions',
+        headline:      'LE MONDE DIT <span class="red">STOP.</span>',
+        subhead:       'Appuyez sur le bouton. Ajoutez votre voix à une demande mondiale croissante.<br>Chaque pression est une personne qui veut la paix.',
+        btn:           'STOP À LA GUERRE',
+        counterLabel:  'Personnes exigeant la paix',
+        counterSub:    'et ça continue — dans le monde entier',
+        shareLabel:    'Faites passer le mot',
+        votedFirst:    'VOTRE VOIX A ÉTÉ AJOUTÉE',
+        votedRepeat:   'VOTRE VOIX EST DÉJÀ COMPTÉE',
+        votedBadge:    'Votre voix est comptée — continuez à cliquer pour la paix',
+        copyBtn:       'Copier le lien',
+        copyConfirm:   'Lien copié — collez-le où vous voulez',
+        footer:        'Une voix mondiale pacifique • Sans affiliation • Juste des gens qui veulent la paix',
+        shareMsg:      'Je soutiens la fin de la guerre en Iran. Des millions de personnes dans le monde ajoutent leur voix — et vous? Cliquez ici pour partager votre soutien:',
+        emailSubject:  'Le monde veut que la guerre s\'arrête — ajoutez votre voix',
+        dir:           'ltr',
+      },
+      ar: {
+        masthead:      'طبعة عالمية • صوتك مهم • انضم إلى الملايين',
+        headline:      'العالم يقول <span class="red">كفى.</span>',
+        subhead:       'اضغط الزر. أضف صوتك إلى مطالبة عالمية متنامية.<br>كل ضغطة هي شخص يريد السلام.',
+        btn:           'أوقفوا الحرب',
+        counterLabel:  'أشخاص يطالبون بالسلام',
+        counterSub:    'والعدد في تزايد — حول العالم',
+        shareLabel:    'انشر الكلمة',
+        votedFirst:    'تمت إضافة صوتك',
+        votedRepeat:   'صوتك محسوب بالفعل',
+        votedBadge:    'صوتك محسوب — استمر في النقر من أجل السلام',
+        copyBtn:       'نسخ الرابط',
+        copyConfirm:   'تم نسخ الرابط — الصقه في أي مكان',
+        footer:        'صوت عالمي سلمي • بدون انتماء • فقط أناس يريدون السلام',
+        shareMsg:      'أنا أدعم إنهاء الحرب في إيران. ملايين الأشخاص حول العالم يضيفون أصواتهم — هل ستفعل ذلك؟ انقر هنا لمشاركة دعمك:',
+        emailSubject:  'العالم يريد إيقاف الحرب — أضف صوتك',
+        dir:           'rtl',
+      },
+      pt: {
+        masthead:      'Edição Mundial • Sua Voz Conta • Junte-se a Milhões',
+        headline:      'O MUNDO DIZ <span class="red">BASTA.</span>',
+        subhead:       'Pressione o botão. Adicione sua voz a uma crescente demanda global.<br>Cada pressão é uma pessoa que quer a paz.',
+        btn:           'PARE A GUERRA',
+        counterLabel:  'Pessoas exigindo paz',
+        counterSub:    'e contando — em todo o mundo',
+        shareLabel:    'Espalhe a palavra',
+        votedFirst:    'SUA VOZ FOI ADICIONADA',
+        votedRepeat:   'SUA VOZ JÁ ESTÁ CONTADA',
+        votedBadge:    'Sua voz está contada — continue clicando pela paz',
+        copyBtn:       'Copiar link',
+        copyConfirm:   'Link copiado — cole em qualquer lugar',
+        footer:        'Uma voz global pacífica • Sem afiliação • Apenas pessoas que querem a paz',
+        shareMsg:      'Apoio o fim da guerra no Irã. Milhões de pessoas ao redor do mundo estão adicionando suas vozes — você vai? Clique aqui para compartilhar seu apoio:',
+        emailSubject:  'O mundo quer que a guerra acabe — adicione sua voz',
+        dir:           'ltr',
+      },
+      de: {
+        masthead:      'Weltausgabe • Deine Stimme Zählt • Schließ dich Millionen an',
+        headline:      'DIE WELT SAGT <span class="red">STOPP.</span>',
+        subhead:       'Drücke den Knopf. Füge deine Stimme einer wachsenden globalen Forderung hinzu.<br>Jeder Druck ist ein Mensch, der Frieden will.',
+        btn:           'STOPPT DEN KRIEG',
+        counterLabel:  'Menschen, die Frieden fordern',
+        counterSub:    'und es werden mehr — weltweit',
+        shareLabel:    'Verbreite die Botschaft',
+        votedFirst:    'DEINE STIMME WURDE HINZUGEFÜGT',
+        votedRepeat:   'DEINE STIMME IST BEREITS GEZÄHLT',
+        votedBadge:    'Deine Stimme zählt — klick weiter für den Frieden',
+        copyBtn:       'Link kopieren',
+        copyConfirm:   'Link kopiert — füge ihn irgendwo ein',
+        footer:        'Eine friedliche globale Stimme • Keine Zugehörigkeit • Nur Menschen, die Frieden wollen',
+        shareMsg:      'Ich unterstütze das Ende des Krieges im Iran. Millionen von Menschen weltweit fügen ihre Stimme hinzu — tust du es auch? Klicke hier, um deine Unterstützung zu teilen:',
+        emailSubject:  'Die Welt will, dass der Krieg endet — füge deine Stimme hinzu',
+        dir:           'ltr',
+      },
+      hi: {
+        masthead:      'विश्व संस्करण • आपकी आवाज़ मायने रखती है • लाखों से जुड़ें',
+        headline:      'दुनिया कहती है <span class="red">रुको।</span>',
+        subhead:       'बटन दबाएं। एक बढ़ती वैश्विक मांग में अपनी आवाज़ जोड़ें।<br>हर दबाव एक ऐसे व्यक्ति का है जो शांति चाहता है।',
+        btn:           'युद्ध बंद करो',
+        counterLabel:  'शांति की मांग करने वाले लोग',
+        counterSub:    'और गिनती जारी है — दुनिया भर में',
+        shareLabel:    'बात फैलाएं',
+        votedFirst:    'आपकी आवाज़ जोड़ी गई',
+        votedRepeat:   'आपकी आवाज़ पहले से गिनी जा चुकी है',
+        votedBadge:    'आपकी आवाज़ गिनी गई — शांति के लिए क्लिक करते रहें',
+        copyBtn:       'लिंक कॉपी करें',
+        copyConfirm:   'लिंक कॉपी हो गया — इसे कहीं भी पेस्ट करें',
+        footer:        'एक शांतिपूर्ण वैश्विक आवाज़ • कोई संबद्धता नहीं • बस शांति चाहने वाले लोग',
+        shareMsg:      'मैं ईरान में युद्ध समाप्त करने का समर्थन करता/करती हूं। दुनिया भर में लाखों लोग अपनी आवाज़ जोड़ रहे हैं — क्या आप भी जोड़ेंगे? अपना समर्थन साझा करने के लिए यहां क्लिक करें:',
+        emailSubject:  'दुनिया चाहती है कि युद्ध रुके — अपनी आवाज़ जोड़ें',
+        dir:           'ltr',
+      },
+      ja: {
+        masthead:      '世界版 • あなたの声が大切 • 何百万人と共に',
+        headline:      '世界は言う <span class="red">止まれ。</span>',
+        subhead:       'ボタンを押してください。高まる世界的な声に加わりましょう。<br>一回一回が、平和を望む一人の人間の声です。',
+        btn:           '戦争を止めろ',
+        counterLabel:  '平和を求める人々',
+        counterSub:    '世界中でカウント中',
+        shareLabel:    '広めましょう',
+        votedFirst:    'あなたの声が追加されました',
+        votedRepeat:   'あなたの声はすでにカウントされています',
+        votedBadge:    '声はカウント済み — 平和のためにクリックし続けて',
+        copyBtn:       'リンクをコピー',
+        copyConfirm:   'リンクをコピーしました — どこにでも貼り付けてください',
+        footer:        '平和な世界の声 • 無所属 • ただ平和を望む人々',
+        shareMsg:      'イランでの戦争終結を支持します。世界中の何百万人もの人々が声を上げています — あなたも加わりませんか？サポートを共有するにはここをクリック:',
+        emailSubject:  '世界は戦争の終結を望んでいます — あなたの声を追加してください',
+        dir:           'ltr',
+      },
+      zh: {
+        masthead:      '全球版 • 您的声音很重要 • 与数百万人同行',
+        headline:      '世界说 <span class="red">停止。</span>',
+        subhead:       '按下按钮，将您的声音加入日益壮大的全球呼声。<br>每一次按下，都是一个渴望和平的人。',
+        btn:           '停止战争',
+        counterLabel:  '呼吁和平的人们',
+        counterSub:    '还在持续增加 — 来自全世界',
+        shareLabel:    '传播这个声音',
+        votedFirst:    '您的声音已被记录',
+        votedRepeat:   '您的声音已经被计入',
+        votedBadge:    '您的声音已计入 — 继续点击，为和平发声',
+        copyBtn:       '复制链接',
+        copyConfirm:   '链接已复制 — 粘贴到任何地方传播',
+        footer:        '和平的全球声音 • 无任何隶属关系 • 只是渴望和平的人们',
+        shareMsg:      '我支持结束伊朗战争。全世界数百万人正在发声 — 您愿意加入吗？点击这里分享您的支持:',
+        emailSubject:  '全世界希望战争停止 — 加入您的声音',
+        dir:           'ltr',
+      },
+      ru: {
+        masthead:      'Мировое издание • Ваш голос важен • Присоединяйтесь к миллионам',
+        headline:      'МИР ГОВОРИТ <span class="red">СТОП.</span>',
+        subhead:       'Нажмите кнопку. Добавьте свой голос к растущему глобальному требованию.<br>Каждое нажатие — это человек, который хочет мира.',
+        btn:           'ОСТАНОВИТЬ ВОЙНУ',
+        counterLabel:  'Людей, требующих мира',
+        counterSub:    'и их становится больше — по всему миру',
+        shareLabel:    'Расскажите всем',
+        votedFirst:    'ВАШ ГОЛОС ДОБАВЛЕН',
+        votedRepeat:   'ВАШ ГОЛОС УЖЕ УЧТЁН',
+        votedBadge:    'Ваш голос учтён — продолжайте нажимать ради мира',
+        copyBtn:       'Копировать ссылку',
+        copyConfirm:   'Ссылка скопирована — вставьте её где угодно',
+        footer:        'Мирный глобальный голос • Без аффилиации • Просто люди, которые хотят мира',
+        shareMsg:      'Я поддерживаю прекращение войны в Иране. Миллионы людей по всему миру добавляют свой голос — вы тоже? Нажмите здесь, чтобы поделиться своей поддержкой:',
+        emailSubject:  'Мир хочет, чтобы война прекратилась — добавьте свой голос',
+        dir:           'ltr',
+      },
+    };
+
+    // ----------------------------------------------------------------
+    // SUPABASE CONFIGURATION
+    // Replace these two values with your own from Supabase → Settings → API
+    // ----------------------------------------------------------------
+    const SUPABASE_URL = 'https://yfpbfejzbuhfzmxckbrb.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_66xpZtWNQQt2qaGF9RcFjQ_a3tGd2_7';
+    // ----------------------------------------------------------------
+
+    const PAGE_URL    = window.location.href || 'https://stopthewar.world';
+    const STORAGE_KEY = 'stw_voted';
+    const LANG_KEY    = 'stw_lang';
+
+    let count    = 11349;
+    let hasVoted = false;
+    let currentLang = 'en';
+
+    const btn        = document.getElementById('mainBtn');
+    const numEl      = document.getElementById('counterNum');
+    const thankyou   = document.getElementById('thankyou');
+    const votedBadge = document.getElementById('votedBadge');
+    const bCont      = document.getElementById('butterflyContainer');
+    const langSelect = document.getElementById('langSelect');
+
+    // ----------------------------------------------------------------
+    // LANGUAGE DETECTION & RENDERING
+    // ----------------------------------------------------------------
+    function detectLang() {
+      // 1. Check saved preference
+      try {
+        const saved = localStorage.getItem(LANG_KEY);
+        if (saved && TRANSLATIONS[saved]) return saved;
+      } catch(e) {}
+
+      // 2. Browser language
+      const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().slice(0, 2);
+      if (TRANSLATIONS[browserLang]) return browserLang;
+
+      // 3. Try navigator.languages array
+      if (navigator.languages) {
+        for (const l of navigator.languages) {
+          const code = l.toLowerCase().slice(0, 2);
+          if (TRANSLATIONS[code]) return code;
+        }
+      }
+
+      return 'en';
+    }
+
+    function applyLang(lang) {
+      const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+      currentLang = lang;
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = t.dir;
+
+      document.getElementById('t-masthead').textContent     = t.masthead;
+      document.getElementById('t-headline').innerHTML       = t.headline;
+      document.getElementById('t-subhead').innerHTML        = t.subhead;
+      btn.textContent                                        = t.btn;
+      document.getElementById('t-counter-label').textContent = t.counterLabel;
+      document.getElementById('t-counter-sub').textContent  = t.counterSub;
+      document.getElementById('t-share-label').textContent  = t.shareLabel;
+      document.getElementById('t-copy-btn').textContent     = t.copyBtn;
+      document.getElementById('t-footer').textContent       = t.footer;
+      document.getElementById('copyConfirm').textContent    = t.copyConfirm;
+
+      // Update voted badge if showing
+      votedBadge.textContent = t.votedBadge;
+
+      // Keep counter number visible
+      numEl.textContent = formatNum(count);
+
+      // Sync dropdown
+      langSelect.value = lang;
+    }
+
+    function setLang(lang) {
+      try { localStorage.setItem(LANG_KEY, lang); } catch(e) {}
+      applyLang(lang);
+    }
+
+    // ----------------------------------------------------------------
+    // SUPABASE
+    // ----------------------------------------------------------------
+    async function loadCount() {
+      try {
+        const res  = await fetch(`${SUPABASE_URL}/rest/v1/counter?id=eq.1&select=count`, {
+          headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+        });
+        const data = await res.json();
+        if (data && data[0]) {
+          count = data[0].count;
+          numEl.textContent = formatNum(count);
+        }
+      } catch(e) {}
+    }
+
+    async function incrementCount() {
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_counter`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      } catch(e) {}
+    }
+
+    // ----------------------------------------------------------------
+    // BUTTERFLIES
+    // ----------------------------------------------------------------
+    const COLOURS = [
+      ['#7EC8E3','#5BA8C4'],['#F4A460','#D4813A'],['#98D4A3','#6CB87A'],
+      ['#D4A5D4','#B07AB0'],['#F7C59F','#E8A070'],['#A8D8EA','#78B8D0'],
+      ['#FFB7C5','#E8889A'],
+    ];
+
+    function makeButterflyHTML(c1, c2) {
+      return `<svg viewBox="0 0 40 32" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="12" cy="10" rx="11" ry="8" fill="${c1}" opacity="0.9"/>
+        <ellipse cx="10" cy="22" rx="8"  ry="6" fill="${c2}" opacity="0.85"/>
+        <ellipse cx="28" cy="10" rx="11" ry="8" fill="${c1}" opacity="0.9"/>
+        <ellipse cx="30" cy="22" rx="8"  ry="6" fill="${c2}" opacity="0.85"/>
+        <ellipse cx="20" cy="16" rx="2"  ry="9" fill="#3a2a1a" opacity="0.7"/>
+        <line x1="20" y1="7" x2="14" y2="1" stroke="#3a2a1a" stroke-width="0.8" opacity="0.6"/>
+        <line x1="20" y1="7" x2="26" y2="1" stroke="#3a2a1a" stroke-width="0.8" opacity="0.6"/>
+        <circle cx="14" cy="1" r="1" fill="#3a2a1a" opacity="0.6"/>
+        <circle cx="26" cy="1" r="1" fill="#3a2a1a" opacity="0.6"/>
+      </svg>`;
+    }
+
+    function spawnButterflies(ox, oy) {
+      const total = 10 + Math.floor(Math.random() * 6);
+      for (let i = 0; i < total; i++) {
+        setTimeout(() => {
+          const b = document.createElement('div');
+          b.className = 'butterfly';
+          const angle = (Math.random() * 320) - 160;
+          const dist  = 120 + Math.random() * 200;
+          const dx    = Math.sin(angle * Math.PI / 180) * dist;
+          const dy    = -(80 + Math.random() * 180);
+          const rot   = (Math.random() - 0.5) * 30;
+          const rot2  = rot + (Math.random() - 0.5) * 40;
+          const dur   = (1.4 + Math.random() * 1.2).toFixed(2);
+          const flap  = (0.18 + Math.random() * 0.18).toFixed(2);
+          const col   = COLOURS[Math.floor(Math.random() * COLOURS.length)];
+          const size  = 22 + Math.floor(Math.random() * 16);
+          b.style.cssText = `left:${ox-size/2}px;top:${oy-size/2}px;width:${size}px;height:${size}px;--dur:${dur}s;--flap:${flap}s;--dx:${dx}px;--dy:${dy}px;--rot:${rot}deg;--rot2:${rot2}deg;`;
+          b.innerHTML = makeButterflyHTML(col[0], col[1]);
+          bCont.appendChild(b);
+          setTimeout(() => b.remove(), parseFloat(dur) * 1000 + 200);
+        }, i * 55);
+      }
+    }
+
+    function playChime() {
+      try {
+        const audio = new AudioContext();
+        [523, 659, 784].forEach((freq, i) => {
+          const osc = audio.createOscillator(), gain = audio.createGain();
+          osc.type = 'sine';
+          osc.connect(gain); gain.connect(audio.destination);
+          osc.frequency.value = freq;
+          const t = audio.currentTime + i * 0.09;
+          gain.gain.setValueAtTime(0, t);
+          gain.gain.linearRampToValueAtTime(0.15, t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+          osc.start(t); osc.stop(t + 0.55);
+        });
+      } catch(e) {}
+    }
+
+    function flashMessage(msg) {
+      thankyou.textContent = msg;
+      thankyou.classList.add('show');
+      setTimeout(() => thankyou.classList.remove('show'), 2400);
+    }
+
+    function formatNum(n) { return n.toLocaleString('en-GB'); }
+
+    // ----------------------------------------------------------------
+    // BUTTON CLICK
+    // ----------------------------------------------------------------
+    btn.addEventListener('click', function() {
+      btn.classList.add('pressed');
+      setTimeout(() => btn.classList.remove('pressed'), 130);
+
+      const rect  = btn.getBoundingClientRect();
+      const cRect = bCont.getBoundingClientRect();
+      spawnButterflies(rect.left + rect.width/2 - cRect.left, rect.top + rect.height/2 - cRect.top);
+      playChime();
+
+      const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+
+      if (!hasVoted) {
+        count++;
+        hasVoted = true;
+        try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) {}
+        numEl.textContent = formatNum(count);
+        numEl.classList.add('bump');
+        setTimeout(() => numEl.classList.remove('bump'), 200);
+        incrementCount();
+        btn.classList.add('voted');
+        flashMessage(t.votedFirst);
+        setTimeout(() => votedBadge.classList.add('show'), 2600);
+      } else {
+        flashMessage(t.votedRepeat);
+      }
+    });
+
+    // ----------------------------------------------------------------
+    // SHARE FUNCTIONS
+    // ----------------------------------------------------------------
+    function getShareMsg() {
+      return (TRANSLATIONS[currentLang] || TRANSLATIONS.en).shareMsg;
+    }
+    function getEmailSubject() {
+      return (TRANSLATIONS[currentLang] || TRANSLATIONS.en).emailSubject;
+    }
+
+    function shareX()        { window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(getShareMsg() + ' ' + PAGE_URL), '_blank'); }
+    function shareFacebook() { window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(PAGE_URL) + '&quote=' + encodeURIComponent(getShareMsg()), '_blank'); }
+    function shareWhatsApp() { window.open('https://wa.me/?text=' + encodeURIComponent(getShareMsg() + ' ' + PAGE_URL), '_blank'); }
+    function shareTelegram() { window.open('https://t.me/share/url?url=' + encodeURIComponent(PAGE_URL) + '&text=' + encodeURIComponent(getShareMsg()), '_blank'); }
+    function shareLinkedIn() { window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(PAGE_URL), '_blank'); }
+    function shareEmail()    { window.open('mailto:?subject=' + encodeURIComponent(getEmailSubject()) + '&body=' + encodeURIComponent(getShareMsg() + '\n\n' + PAGE_URL)); }
+
+    function copyLink() {
+      const text = getShareMsg() + ' ' + PAGE_URL;
+      navigator.clipboard.writeText(text).then(showCopyConfirm).catch(() => {
+        const el = document.createElement('textarea');
+        el.value = text; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showCopyConfirm();
+      });
+    }
+
+    function showCopyConfirm() {
+      const el = document.getElementById('copyConfirm');
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 3500);
+    }
+
+    // ----------------------------------------------------------------
+    // INIT
+    // ----------------------------------------------------------------
+    try { hasVoted = !!localStorage.getItem(STORAGE_KEY); } catch(e) {}
+
+    const lang = detectLang();
+    applyLang(lang);
+
+    if (hasVoted) {
+      btn.classList.add('voted');
+      votedBadge.classList.add('show');
+    }
+
+    loadCount();
+  </script>
+
+</body>
+</html>
